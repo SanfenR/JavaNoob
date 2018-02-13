@@ -12,7 +12,10 @@ public class Sort {
             a[i] = sc.nextInt();
         }
         printArr(a);
-        quick(a, 0, a.length -1);
+        //bubblingSort(a);
+        //quickSort(a, 0, a.length -1);
+        //selectSort(a);
+        insertSort(a);
         printArr(a);
     }
 
@@ -26,7 +29,7 @@ public class Sort {
      *
      * @param number 需要排序的整型数组
      */
-    public static void bubbling(int[] number) {
+    public static void bubblingSort(int[] number) {
         int swap;
         for (int i = 0; i < number.length - 1; i++) {
             for (int j = 0; j < number.length - 1 - i; j++) {
@@ -41,11 +44,11 @@ public class Sort {
     }
 
 
-    public static void quick(int[] number, int low, int high) {
+    public static void quickSort(int[] number, int low, int high) {
         if (low < high) {
             int mid = getMiddle(number, low, high);
-            quick(number, low, mid -1);
-            quick(number, mid + 1, high);
+            quickSort(number, low, mid - 1);
+            quickSort(number, mid + 1, high);
         }
     }
 
@@ -53,8 +56,8 @@ public class Sort {
      * 快排
      *
      * @param numbers 数组
-     * @param low 低位
-     * @param high 高位
+     * @param low     低位
+     * @param high    高位
      * @return
      */
     private static int getMiddle(int[] numbers, int low, int high) {
@@ -69,9 +72,58 @@ public class Sort {
             }
             numbers[high] = numbers[low]; //比中轴大的记录移到高端
         }
-        numbers[low] = temp ; //中轴记录到尾
+        numbers[low] = temp; //中轴记录到尾
         return low;
     }
+
+    /**
+     * 选择排序
+     * 在未排序序列中找到最小元素，存放到排序序列的起始位置
+     *
+     * @param numbers
+     */
+    private static void selectSort(int[] numbers) {
+        int temp;
+        for (int i = 0; i < numbers.length; i++) {
+            int k = i;
+            for (int j = numbers.length - 1; j > i; j--) {
+                if (numbers[j] < numbers[k]) {
+                    k = j;
+                }
+            }
+            temp = numbers[i];
+            numbers[i] = numbers[k];
+            numbers[k] = temp;
+        }
+    }
+
+    /**
+     * 插入排序
+     * <p>
+     * 从第一个元素开始，该元素可以认为已经被排序
+     * 取出下一个元素，在已经排序的元素序列中从后向前扫描
+     * 如果该元素（已排序）大于新元素，将该元素移到下一位置
+     * 重复步骤3，直到找到已排序的元素小于或者等于新元素的位置
+     * 将新元素插入到该位置中
+     * 重复步骤2
+     *
+     * @param numbers 待排序数组
+     */
+    private static void insertSort(int[] numbers) {
+        int temp;
+        int j;
+        for (int i = 0; i < numbers.length; i++) {
+            temp = numbers[i];
+            for (j = i; j > 0 && temp < numbers[j - 1]; j--) {
+                numbers[j] = numbers[j - 1];
+            }
+            numbers[j] = temp;
+        }
+    }
+
+
+
+
 
 
     public static void printArr(int[] number) {
