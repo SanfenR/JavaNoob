@@ -15,7 +15,9 @@ public class Sort {
         //bubblingSort(a);
         //quickSort(a, 0, a.length -1);
         //selectSort(a);
-        insertSort(a);
+        //insertSort(a);
+
+        shellSort(a);
         printArr(a);
     }
 
@@ -122,8 +124,19 @@ public class Sort {
     }
 
 
-
-
+    private static void shellSort(int[] numbers) {
+        int j = 0;
+        int temp = 0;
+        for (int increment = numbers.length / 2; increment > 0; increment /= 2) {
+            for (int i = increment; i < numbers.length; i++) {
+                temp = numbers[i];
+                for (j = i; j >= increment && temp < numbers[j - increment]; j -= increment) {
+                    numbers[j] = numbers[j - increment];
+                }
+                numbers[j] = temp;
+            }
+        }
+    }
 
 
     public static void printArr(int[] number) {
